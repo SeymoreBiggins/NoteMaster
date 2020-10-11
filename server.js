@@ -1,17 +1,16 @@
 // Dependencies, requires
 const express = require('express');
-// connect to the JSON data //
-const { notes } = require('./db/db.json');
+// Heroku requires port 80, set the environment variable process.env.PORT
+const PORT = process.env.PORT || 3002;
+// Instantiate an Express server & set port
+const app = express();
 const path = require('path');
 // required to POST
 const fs = require('fs');
 // id gen
 const unique_id = require('unique-id-key')
 
-// Instantiate an Express server & set port
-const app = express();
-// Heroku requires port 80, set the environment variable process.env.PORT
-const PORT = process.env.PORT || 3002;
+const notes = require('./db/db.json');
 
 // Variables Above -- Functions Below (this is the way)
 
