@@ -4,7 +4,7 @@
 https://github.com/SeymoreBiggins/NoteMaster
 
 ## Heroku site
-https://quiet-sea-24192.herokuapp.com/
+https://secure-hamlet-68138.herokuapp.com/
 
 ## Table of Contents
 * [Description](#description)
