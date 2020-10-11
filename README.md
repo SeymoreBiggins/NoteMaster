@@ -1,5 +1,7 @@
 # Note-Master
 
+![Note-Master](https://github.com/SeymoreBiggins/NoteMaster/blob/main/README_example.JPG?raw=true)
+
 ## GitHub repository
 https://github.com/SeymoreBiggins/NoteMaster
 
