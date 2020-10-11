@@ -1,10 +1,12 @@
 // Dependencies, requires
 const express = require('express');
 // connect to the JSON data //
-const { notes } = require('./db/db');
+const { notes } = require('./db/db.json');
 const path = require('path');
 // required to POST
 const fs = require('fs');
+// id gen
+const unique_id = require('unique-id-key')
 
 // Instantiate an Express server & set port
 const app = express();
@@ -13,9 +15,9 @@ const PORT = process.env.PORT || 3002;
 
 // Variables Above -- Functions Below (this is the way)
 
+app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static('public'))
 
 // GET requests
 app.get('/', (req, res) => { // home to index.html
@@ -26,34 +28,20 @@ app.get('/notes', (req, res) => { // notes to index.html
   res.sendFile(path.join(__dirname, "./public/notes.html"));
 });
 
-app.get('/api/notes/:id', (req, res) => {
-  const result = findById(req.params.id, notes);
-  if (result) {
-    res.json(result);
-  } else {
-    res.send(404);
-  }
-});
-
 app.get('/api/notes', (req, res) => {
-  res.json(notes);
+  return res.json(notes);
 });
 
 // POST requests
 
 app.post('/api/notes', (req, res) => {
-  // array 
-   req.body.id = notes.length.toString();
-  //validation
-  if (!validateNotes(req.body)) {
-    res.status(400).send('The note is not formed propertly. Ensure all fields are filled.');
-  } else {
-    const note = createNewNote(req.body, notes);
-    res.json(note);
-  }
+  req.body.id = unique_id.APIKEY(8, "-");
+  const newNote = req.body;
+  notes.push(newNote);
+  res.json(newNote);
 });
 
 // Listen for requests
 app.listen(PORT, () => {
-  console.log(`API server now on port ${PORT}!`);
+  console.log(`API server on port ${PORT}!`);
 });
